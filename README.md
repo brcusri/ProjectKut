@@ -1,2 +1,1 @@
-"# ProjectKut E-Ticare Projesi" 
-"# ProjectKut E-Ticaret Projesidir." 
+"# ProjectKut bir E-Ticaret Projesidir." 
