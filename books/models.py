@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
+from ckeditor_uploader.fields import  RichTextUploadingField
 
 
 class Category(models.Model):
@@ -36,7 +37,7 @@ class Book(models.Model):
     year = models.IntegerField()
     edition = models.CharField(max_length=255)
     amount = models.IntegerField()
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=Status)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

@@ -5,7 +5,11 @@
 		<div class="container">
 			<div id="responsive-nav">
                 <!-- category nav -->
-				<div class="category-nav">
+               {% if page == 'home' %}
+                <div class="category-nav">
+                {% else %}
+                <div class="category-nav show-on-click">
+                {% endif %}
 					<span class="category-header">Categories <i class="fa fa-list"></i></span>
 					<ul class="category-list">
 						<li class="dropdown side-dropdown">
@@ -108,10 +112,10 @@
 				<div class="menu-nav">
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					<ul class="menu-list">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Shop</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
+						<li><a href="/">Home</a></li>
+                        <li><a href="/AboutUs">About Us</a></li>
+                        <li><a href="/Contact">Contact</a></li>
+                        <li><a href="/Refences">References</a></li>
 					</ul>
 				</div>
 				<!-- menu nav -->
@@ -119,3 +123,4 @@
 		</div>
 		<!-- /container -->
 	</div>
+</div>
