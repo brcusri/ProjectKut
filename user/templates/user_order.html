@@ -1,0 +1,84 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user_name }} Orders {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+
+{% block content %}
+    	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">User Orders</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+                <div class="col-md-4">
+                    <div class="billing-details">
+                        {% include "user_panel.html" %}
+
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h3 class="title">User Information</h3>
+                        </div>
+                        <div >
+                          <table class="shopping-cart-table table">
+								<thead>
+                                    <tr>
+                                        <th class="text-center">User Name</th>
+                                         <th class="text-center">Name Surname</th>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Create At</th>
+                                        <th class="text-center">Detail</th>
+                                    </tr>
+								</thead>
+                              {% for rs in userorders %}
+								<tbody>
+                                    <tr>
+                                        <th class="text-center">{{ rs.user.username}}</th>
+										<th class="text-center">{{ rs.first_name }} {{ rs.last_name }}</th>
+                                        <th class="text-center">{{ rs.id }}</th>
+                                        <th class="text-center">{{ rs.total }}</th>
+                                        <th class="text-center">{{ rs.status }}</th>
+                                        <th class="text-center">{{ rs.create_at }}</th>
+                                        <th class="text-center"><a class="primary-btn" href="/user/orderdetail/{{ rs.id }}">Detay</a> </th>
+                                    </tr>
+                                </tbody>
+                              {% endfor %}
+                           </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+{% endblock %}

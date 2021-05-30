@@ -1,0 +1,98 @@
+{% extends "homebase.html" %}
+
+{% block title %} Shop Cart {% endblock %}
+{% block keywords %} {{ categorydata.keywords }} {% endblock %}
+{% block description %} {{ categorydata.description }} {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+
+{% block content %}
+    	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Shop Cart</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+           <!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+						<div class="order-summary clearfix">
+							<div class="section-title">
+								<h3 class="title">ShopCart Book List</h3>
+							</div>
+							<table class="shopping-cart-table table">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th></th>
+										<th class="text-center">Price</th>
+										<th class="text-center">Quantity</th>
+										<th class="text-center">Total</th>
+										<th class="text-right"></th>
+									</tr>
+								</thead>
+								<tbody>
+
+                                {% for rs in shopcart %}
+									<tr>
+										<td class="thumb"><img src="{{ rs.book.Image.url }}" alt=""></td>
+										<td class="details">
+											<a href="#">{{ rs.book.title}}</a>
+											<ul>
+												<li><span>Author:{{ rs.book.author }}</span></li>
+												<li><span>Edition: {{ rs.book.edition }}</span></li>
+											</ul>
+										</td>
+										<td class="price text-center"><strong>TL {{rs.book.price}}</strong><br><del class="font-weak"><small>TL {{rs.book.price}}</small></del></td>
+										<td class="qty text-center"><strong>{{ rs.quantity }}</strong></td>
+										<td class="total text-center"><strong class="primary-color">{{ rs.amount }}</strong></td>
+										<td class="text-right"><button class="main-btn icon-btn"><a href="/order/deletefromcart/{{ rs.id }}" onclick="return confirm('Are you sure deleted?')"><i class="fa fa-close"></i></a> </button></td>
+									</tr>
+                                {% endfor %}
+								</tbody>
+								<tfoot>
+									<tr>
+										<th class="empty" colspan="3"></th>
+										<th>SUBTOTAL</th>
+										<th colspan="2" class="sub-total">TL {{ total }}</th>
+									</tr>
+									<tr>
+										<th class="empty" colspan="3"></th>
+										<th>SHIPING</th>
+										<td colspan="2">Free Shipping</td>
+									</tr>
+									<tr>
+										<th class="empty" colspan="3"></th>
+										<th>TOTAL</th>
+										<th colspan="2" class="total">TL {{total}}</th>
+									</tr>
+								</tfoot>
+							</table>
+							<div class="pull-right">
+								<button class="primary-btn"><a href="/order/orderbook">Place Order</a> </button>
+							</div>
+						</div>
+                </div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+{% endblock %}

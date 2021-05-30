@@ -17,19 +17,43 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
+
 from home import views
+from user import views as UserViews
+from order import views as  OrderViews
 
 
 
 urlpatterns = [
     path('', include('home.urls')),
-    path('books/', include('books.urls')),
+    path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
+    path('books/', include('books.urls')),
+    path('user/', include('user.urls')),
+    path('order/',include('order.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
     path('AboutUs/', views.AboutUs, name='AboutUs'),
     path('Refences/', views.References, name='References'),
     path('Contact/', views.Contact, name='Contact'),
-    path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+
+
+    path('category/<int:id>/<slug:slug>', views.category_product, name='category_product'),
+    path('book/<int:id>/<slug:slug>',views.book_detail, name='book_detail'),
+    path('search/',views.book_search, name='book_search'),
+    path('search_auto/', views.book_search_auto, name='book_search_auto'),
+
+
+    path('signup/', UserViews.signup_view, name='signup_view'),
+    path('logout/', UserViews.logout_view, name='logout_view'),
+    path('login/', UserViews.login_view, name='login_view'),
+
+    path('shopcart/', OrderViews.shopcart, name='shopcart'),
+
+
+
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
