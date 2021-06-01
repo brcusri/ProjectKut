@@ -92,3 +92,18 @@ class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ('phone', 'adress', 'city', 'country', 'image')
+
+
+class faq(models.Model):
+    Status = (('True','True'),
+              ('False', 'False'))
+    question = models.CharField(max_length=150)
+    answer = models.CharField(max_length=150)
+    keywords = models.CharField(max_length=20)
+    Status = models.CharField(max_length=10, choices=Status)
+
+    craeted_ad = models.DateTimeField(auto_now_add=True)
+    updated_ad = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.question

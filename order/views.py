@@ -6,7 +6,7 @@ from django.utils.crypto import get_random_string
 
 from books.models import Book, Category
 from home.models import UserProfile
-from order.models import ShopCart, ShopCartForm, OrderForm,Order,OrderBook
+from order.models import ShopCart, ShopCartForm, OrderForm, Order, OrderBook, WishBook
 
 
 def index(request):
@@ -137,3 +137,46 @@ def OrderBookFunc(request):
         'form':form,
     }
     return render(request,'OrderForm.html',context)
+
+def wishlist(request):
+    category = Category.objects.all()
+    current_user = request.user
+    wishbook = WishBook.objects.filter(user_id=current_user.id)
+    request.session['wish_items'] = WishBook.objects.filter(user_id=current_user.id).count()
+    contex = {
+        'category': category,
+        'wishbook': wishbook,
+    }
+    return render(request, 'WishListBook.html', contex)
+
+@login_required(login_url='/login')
+def addwishlist(request,id):
+    url = request.META.get('HTTP_REFERER')
+    current_user = request.user
+    checkbook = WishBook.objects.filter(book_id=id)
+    if checkbook:
+        control = 1
+    else:
+        control = 0
+
+    if control == 1:
+        data = WishBook.objects.get(book_id=id)
+        data.quantity += 1
+        data.save()
+    else:
+        data = WishBook()
+        data.user_id = current_user.id
+        data.book_id = id
+        data.quantity = 1
+        data.save()
+    messages.success(request, 'Book added to wishlist')
+    return HttpResponseRedirect(url)
+
+@login_required(login_url='/login')
+def deletefromwish(request,id):
+    current_user = request.user
+    WishBook.objects.filter(id=id).delete()
+    request.session['wish_items'] = WishBook.objects.filter(user_id=current_user.id).count()
+    messages.success(request,"Successfully deleted")
+    return HttpResponseRedirect("/order/wishlist")
+

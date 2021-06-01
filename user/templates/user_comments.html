@@ -1,6 +1,6 @@
 {% extends "homebase.html" %}
 
-{% block title %} {{ profile.user_name }} Orders {% endblock %}
+{% block title %} {{ profile.user_name }} Comments {% endblock %}
 {% block keywords %} {{ setting.keywords }} {% endblock %}
 {% block description %} {{ setting.description }} {% endblock %}
 
@@ -19,7 +19,7 @@
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="/">Home</a></li>
-				<li class="active">User Orders</li>
+				<li class="active">User Comments</li>
 			</ul>
 		</div>
 	</div>
@@ -46,25 +46,30 @@
                           <table class="shopping-cart-table table">
 								<thead>
                                     <tr>
-                                        <th class="text-center">User Name</th>
-                                         <th class="text-center">Name Surname</th>
-                                        <th class="text-center">ID</th>
-                                        <th class="text-center">Total</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Create At</th>
-                                        <th class="text-center">Detail</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">Book</th>
+                                        <th class="text-center">Subject</th>
+                                        <th class="text-center">Comment</th>
+                                        <th class="text-center">Date</th>
                                     </tr>
 								</thead>
-                              {% for rs in userorders %}
+                              {% for rs in comments %}
 								<tbody>
                                     <tr>
-                                        <th class="text-center">{{ rs.user.username}}</th>
-										<th class="text-center">{{ rs.first_name }} {{ rs.last_name }}</th>
-                                        <th class="text-center">{{ rs.id }}</th>
-                                        <th class="text-center">{{ rs.total }}</th>
-                                        <th class="text-center">{{ rs.status }}</th>
+										<th class="text-center">{{ rs.rate }}</th>
+                                        <th class="text-center">
+                                            <a href="/book/{{ rs.book_id }}/{{ rs.book.slug }}">
+                                            {{ rs.book.title }}
+                                            </a>
+                                        </th>
+                                        <th class="text-center">{{ rs.subject }}</th>
+                                        <th class="text-center">{{ rs.comment }}</th>
                                         <th class="text-center">{{ rs.create_at }}</th>
-                                        <th class="text-center"><a class="primary-btn" href="/user/orderdetail/{{ rs.id }}">Detay</a> </th>
+                                        <th class="text-center">
+                                            <a class="main-btn icon-btn" href="/user/deletecomments/{{ rs.id }}" onclick="return confirm('Are you sure deleted?')">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </th>
                                     </tr>
                                 </tbody>
                               {% endfor %}

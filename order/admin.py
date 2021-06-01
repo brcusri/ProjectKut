@@ -1,10 +1,14 @@
 from django.contrib import admin
 
-from order.models import ShopCart,Order, OrderBook
+from order.models import ShopCart,Order, OrderBook,WishBook
 
 
 class ShopCartAdmin(admin.ModelAdmin):
     list_display = ['user', 'book', 'price', 'quantity', 'amount']
+    list_filter = ['user']
+
+class WishBookAdmin(admin.ModelAdmin):
+    list_display = ['user', 'book', 'quantity']
     list_filter = ['user']
 
 class OrderBookline(admin.TabularInline):
@@ -28,3 +32,4 @@ class OrderBookAdmin(admin.ModelAdmin):
 admin.site.register(ShopCart,ShopCartAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderBook,OrderBookAdmin)
+admin.site.register(WishBook,WishBookAdmin)

@@ -122,7 +122,7 @@
                             {% endif %}
 							<ul class="custom-menu">
 								<li><a href="/user/"><i class="fa fa-user-o"></i> My Account</a></li>
-								<li><a href="/user/wishlist"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+								<li><a href="/order/wishlist"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
 								<li><a href="/user/userorders"><i class="fa fa-exchange"></i> My Orders</a></li>
 								<li><a href="/user/comments"><i class="fa fa-check"></i> My Comments</a></li>
 								<li><a href="/logout/"><i class="fa fa-unlock-alt"></i> Logout</a></li>
@@ -132,38 +132,33 @@
 
 						<!-- Cart -->
 						<li class="header-cart dropdown default-dropdown">
-							<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<a href="{% url 'shopcart' %}" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 								<div class="header-btns-icon">
 									<i class="fa fa-shopping-cart"></i>
 									<span class="qty">{{ request.session.cart_items }}</span>
 								</div>
 								<strong class="text-uppercase">My Cart:</strong>
 								<br>
-								<span> TL </span>
+                                {% load apptags %}
+                                {% shopcarttotal user.id as total %}
+								<span> {{ total }} TL </span>
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
 									<div class="shopping-cart-list">
-										<div class="product product-widget">
+                                    {% shopcartview user.id as shopcart %}
+                                        {% for rs in shopcart %}
+                                        <div class="product product-widget">
 											<div class="product-thumb">
-												<img src="{% static 'img/thumb-product01.jpg' %}" alt="">
+												<img src="{{ rs.book.Image.url }}" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+												<h3 class="product-price">TL {{rs.book.price}}<span class="qty">x3</span></h3>
+												<h2 class="product-name"><a href="#">{{ rs.book.title}}</a></h2>
 											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                            <button class="cancel-btn"><a href="/order/deletefromcart/{{ rs.id }}" onclick="return confirm('Are you sure deleted?')"><i class="fa fa-trash"></i></a></button>
 										</div>
-										<div class="product product-widget">
-											<div class="product-thumb">
-												<img src="{% static 'img/thumb-product01.jpg' %}" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-										</div>
+                                        {% endfor %}
 									</div>
 									<div class="shopping-cart-btns">
 										<button class="main-btn"><a href="/shopcart/">View Cart</a> </button>

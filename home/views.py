@@ -22,6 +22,7 @@ def index(request):
     bestbooks = Book.objects.all().order_by('-id')[:4]
     pickbooks = Book.objects.all().order_by('?')[:4]
     request.session['cart_items'] = ShopCart.objects.filter(user_id=current_user.id).count()
+
     context = {'setting': setting,
                'page': 'home',
                'sliderdata': sliderdata,
@@ -37,7 +38,8 @@ def AboutUs(request):
     category = Category.objects.all()
     context = {'setting': setting,
                'page': 'AboutUs',
-               'category':category}
+               'category':category,
+               }
     return render(request, 'AboutUs.html', context)
 
 def References(request):
