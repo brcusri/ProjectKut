@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 
 from books.models import Book, Category, Images, Comment
-from home.models import Settings, ContactForm, ContactFormMessage, UserProfile
+from home.models import Settings, ContactForm, ContactFormMessage, UserProfile, faq
 from home.forms import SearchForm
 import  json
 
@@ -127,5 +127,12 @@ def book_search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data,mimetype)
+
+def Faq(request):
+    category = Category.objects.all()
+    Faq = faq.objects.all().order_by('-ordernr')
+    contex = {'category':category,
+              'Faq': Faq}
+    return render(request, 'FAQ.html', contex)
 
 

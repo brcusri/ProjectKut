@@ -97,8 +97,9 @@ class UserProfileForm(ModelForm):
 class faq(models.Model):
     Status = (('True','True'),
               ('False', 'False'))
+    ordernr = models.IntegerField()
     question = models.CharField(max_length=150)
-    answer = models.CharField(max_length=150)
+    answer = models.TextField()
     keywords = models.CharField(max_length=20)
     Status = models.CharField(max_length=10, choices=Status)
 

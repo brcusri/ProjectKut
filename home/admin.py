@@ -10,7 +10,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ['country','city']
 
 class faqAdmin(admin.ModelAdmin):
-    list_display = ['question','answer','Status']
+    list_display = ['ordernr','question','answer','Status']
     list_filter = ['Status']
 
 

@@ -50,6 +50,7 @@ urlpatterns = [
     path('login/', UserViews.login_view, name='login_view'),
 
     path('shopcart/', OrderViews.shopcart, name='shopcart'),
+    path('Faq/', views.Faq, name='Faq'),
 
 
 
